@@ -148,11 +148,12 @@ const ProgressView: React.FC = () => {
                         <span className="text-sm font-medium">{habit.name}</span>
                         <span className="text-sm font-semibold">{Math.round(habit.completionRate)}%</span>
                       </div>
-                      <Progress 
-                        value={habit.completionRate} 
+                      <Progress
+                        value={habit.completionRate}
                         className="h-2"
-                        indicatorClassName={`bg-[${categoryColors[habit.category]}]`}
-                      />
+                        style={{
+                          backgroundColor: categoryColors[habit.category],
+                        }}
                     </div>
                   ))}
                 </div>
