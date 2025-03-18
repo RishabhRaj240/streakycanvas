@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,18 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Custom colors for our habit tracker
+				habit: {
+					purple: {
+						light: '#D6BCFA',
+						DEFAULT: '#9B87F5',
+						dark: '#6E59A5'
+					},
+					green: '#10B981',
+					yellow: '#FBBF24',
+					red: '#EF4444',
+					blue: '#3B82F6'
 				}
 			},
 			borderRadius: {
@@ -84,11 +97,22 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'streak-pulse': {
+					'0%, 100%': { transform: 'scale(1)' },
+					'50%': { transform: 'scale(1.05)' }
+				},
+				'badge-shine': {
+					'0%': { opacity: '0', transform: 'translateX(-100%) rotate(-35deg)' },
+					'25%, 75%': { opacity: '0.75' },
+					'100%': { opacity: '0', transform: 'translateX(100%) rotate(-35deg)' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'streak-pulse': 'streak-pulse 1.5s ease-in-out',
+				'badge-shine': 'badge-shine 2s linear infinite'
 			}
 		}
 	},
