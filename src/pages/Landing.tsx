@@ -45,6 +45,12 @@ import {
   Cell,
 } from "recharts";
 
+interface CategoryData {
+  name: string;
+  value: number;
+  streak: number;
+}
+
 // Sample data for the dashboard
 const weeklyData = [
   { name: "Mon", completed: 8, total: 10, streak: 5 },
@@ -56,7 +62,7 @@ const weeklyData = [
   { name: "Sun", completed: 10, total: 10, streak: 11 },
 ];
 
-const categoryData = [
+const categoryData: CategoryData[] = [
   { name: "Fitness", value: 30, streak: 15 },
   { name: "Health", value: 25, streak: 12 },
   { name: "Mindfulness", value: 20, streak: 8 },
@@ -120,9 +126,11 @@ const DashboardPreview = () => {
                   ))}
                 </Pie>
                 <Tooltip
-                  formatter={(value: number, entry: any) => [
-                    `${value}% (${entry.payload.streak} days)`,
-                    entry.name,
+                  formatter={(value: number) => [
+                    `${value}% (${
+                      categoryData.find((d) => d.value === value)?.streak || 0
+                    } days)`,
+                    categoryData.find((d) => d.value === value)?.name || "",
                   ]}
                 />
               </PieChart>
@@ -162,6 +170,16 @@ const Landing = () => {
   const scrollToFeatures = () => {
     const featuresSection = document.getElementById("features-section");
     featuresSection?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const scrollToTestimonials = () => {
+    const testimonialsSection = document.getElementById("testimonials-section");
+    testimonialsSection?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const scrollToFAQ = () => {
+    const faqSection = document.getElementById("faq-section");
+    faqSection?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -213,14 +231,20 @@ const Landing = () => {
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 mb-8">
+                  <Link to="/tracker">
+                    <Button
+                      size="lg"
+                      className="bg-habit-purple hover:bg-habit-purple/90"
+                    >
+                      Start Your Journey
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
                   <Button
                     size="lg"
-                    className="bg-habit-purple hover:bg-habit-purple/90"
+                    variant="outline"
+                    onClick={scrollToFeatures}
                   >
-                    Start Your Journey
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                  <Button size="lg" variant="outline">
                     Watch Demo
                   </Button>
                 </div>
@@ -456,9 +480,9 @@ const Landing = () => {
               <Button
                 size="lg"
                 className="bg-habit-purple hover:bg-habit-purple/90"
-                onClick={scrollToFeatures}
+                onClick={scrollToTestimonials}
               >
-                Explore All Features
+                See What Users Say
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </div>
@@ -494,11 +518,17 @@ const Landing = () => {
                 <div className="text-muted-foreground">Days Average Streak</div>
               </div>
             </div>
+            <div className="text-center mt-8">
+              <Button size="lg" variant="outline" onClick={scrollToFAQ}>
+                Have Questions?
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </div>
           </div>
         </section>
 
         {/* Testimonials Section */}
-        <section className="py-20">
+        <section id="testimonials-section" className="py-20">
           <div className="container">
             <h3 className="text-3xl font-bold text-center mb-12">
               What Our Users Say
@@ -578,11 +608,22 @@ const Landing = () => {
                 </p>
               </div>
             </div>
+            <div className="text-center mt-8">
+              <Link to="/tracker">
+                <Button
+                  size="lg"
+                  className="bg-habit-purple hover:bg-habit-purple/90"
+                >
+                  Join Our Community
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+            </div>
           </div>
         </section>
 
         {/* FAQ Section */}
-        <section className="py-20 bg-muted/20">
+        <section id="faq-section" className="py-20 bg-muted/20">
           <div className="container">
             <h3 className="text-3xl font-bold text-center mb-12">
               Frequently Asked Questions
@@ -630,6 +671,17 @@ const Landing = () => {
                 </AccordionItem>
               </Accordion>
             </div>
+            <div className="text-center mt-8">
+              <Link to="/tracker">
+                <Button
+                  size="lg"
+                  className="bg-habit-purple hover:bg-habit-purple/90"
+                >
+                  Start Your Free Trial
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+            </div>
           </div>
         </section>
 
@@ -643,11 +695,14 @@ const Landing = () => {
               Join thousands of users who are building better habits with
               StreakCanvas.
             </p>
-            <Link
-              to="/tracker"
-              className="px-8 py-3 bg-habit-purple text-white rounded-md text-lg hover:bg-habit-purple/90 transition-colors"
-            >
-              Start Tracking Now
+            <Link to="/tracker">
+              <Button
+                size="lg"
+                className="bg-habit-purple hover:bg-habit-purple/90 px-8 py-6 text-lg"
+              >
+                Start Tracking Now
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
             </Link>
           </div>
         </section>
