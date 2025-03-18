@@ -154,6 +154,7 @@ const ProgressView: React.FC = () => {
                         style={{
                           backgroundColor: categoryColors[habit.category],
                         }}
+                      />
                     </div>
                   ))}
                 </div>
